@@ -9,6 +9,7 @@ import Business.NGOVolunteer.VolRequests;
 import Business.NGOVolunteer.Volunteer;
 import Business.Reqorder.Reqorder;
 import Business.UserAccount.UserAccount;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
@@ -25,6 +26,7 @@ public class RequestsPanel extends javax.swing.JPanel {
     JPanel userProcessContainer;
     EcoSystem ecosystem;
     UserAccount userAcc;
+    String ngoName;
     public RequestsPanel(JPanel userProcessContainer,EcoSystem ecosystem,UserAccount userAcc) {
         initComponents();
         this.userProcessContainer = userProcessContainer;
@@ -32,6 +34,9 @@ public class RequestsPanel extends javax.swing.JPanel {
         this.userAcc = userAcc;
         populateRTable();
         populateVTable();
+        ngoName= userAcc.getEmployee().getName();
+        //tblV.setVisible(false);
+        btnAvail.setVisible(false);
     }
 
     /**
@@ -112,20 +117,16 @@ public class RequestsPanel extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 14, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(btnAvail)
-                        .addGap(67, 67, 67))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 814, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(14, 14, 14))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(btnProcess)
-                        .addGap(69, 69, 69))))
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 814, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 28, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(lblAddVolTitle2)
+                        .addGap(278, 278, 278)
+                        .addComponent(btnProcess))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(318, 318, 318)
                         .addComponent(lblAddVolTitle))
@@ -133,16 +134,17 @@ public class RequestsPanel extends javax.swing.JPanel {
                         .addGap(56, 56, 56)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 696, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(29, 29, 29)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(lblAddVolTitle2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(lblR))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(lblAddVolTitle1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(lblW)))))
+                        .addGap(102, 102, 102)
+                        .addComponent(lblR))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(157, 157, 157)
+                        .addComponent(lblW))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(lblAddVolTitle1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(317, 317, 317)
+                        .addComponent(btnAvail)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -151,23 +153,28 @@ public class RequestsPanel extends javax.swing.JPanel {
                 .addContainerGap()
                 .addComponent(lblAddVolTitle)
                 .addGap(32, 32, 32)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(btnProcess))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(lblAddVolTitle2)
-                        .addComponent(lblR)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblAddVolTitle1)
-                    .addComponent(lblW))
-                .addGap(29, 29, 29)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(lblAddVolTitle2))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(176, 176, 176)
+                                .addComponent(lblR)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(lblW)))
+                        .addGap(18, 18, 18)
+                        .addComponent(lblAddVolTitle1)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(42, 42, 42)
+                .addGap(18, 18, 18)
                 .addComponent(btnAvail)
-                .addGap(100, 100, 100))
+                .addGap(123, 123, 123))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -180,8 +187,25 @@ public class RequestsPanel extends javax.swing.JPanel {
         }
         DefaultTableModel model = (DefaultTableModel) tblV.getModel();
         Volunteer selectedV = (Volunteer)model.getValueAt(selectedRowIndex, 0);
+        if(selectedV.getVolAvail().equals("New")){
         selectedV.setVolAvail("Yes");
-        
+        String reqidval=lblR.getText();
+        ArrayList<VolRequests> vrList=new ArrayList<VolRequests>();
+        for(VolRequests vr: vrList){
+            if(vr.getVolreqId().equals(reqidval)){
+                vr.setVolreqStatus("Completed");
+            }
+        }
+        JOptionPane.showMessageDialog(this, "Request Completed");
+        }
+        else if(selectedV.getVolAvail().equals("Yes")){
+            JOptionPane.showMessageDialog(this, "This Volunteer is already available");
+        }
+        else if(selectedV.getVolAvail().equals("No")){
+            JOptionPane.showMessageDialog(this, "This Volunteer is currently unavailable");
+        }
+        populateRTable();
+        populateVTable();
     }//GEN-LAST:event_btnAvailActionPerformed
 
     private void btnProcessActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProcessActionPerformed
@@ -195,6 +219,9 @@ public class RequestsPanel extends javax.swing.JPanel {
         VolRequests selectedVR = (VolRequests)model.getValueAt(selectedRowIndex, 0);
         lblW.setText(selectedVR.getVolreqWH());
         lblR.setText(selectedVR.getVolreqId());
+        tblV.setVisible(true);
+        btnAvail.setVisible(true);
+        populateVTable();
     }//GEN-LAST:event_btnProcessActionPerformed
 
 
@@ -216,6 +243,7 @@ public class RequestsPanel extends javax.swing.JPanel {
         DefaultTableModel model = (DefaultTableModel) tblR.getModel();
         model.setRowCount(0);
         for(VolRequests vr: ecosystem.getVRDirectory().getVrList()){
+           if(vr.getVolreqName().equals(ngoName)){
            Object[] row = new Object[6];
            row[0] =vr;
            row[1] =vr.getVolreqName();
@@ -223,6 +251,7 @@ public class RequestsPanel extends javax.swing.JPanel {
            row[3] =vr.getVolreqNum();
            row[4] =vr.getVolreqStatus();
            model.addRow(row);
+           }
         } 
     }
 

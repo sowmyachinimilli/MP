@@ -56,7 +56,7 @@ public class ManageVolunteerPanel extends javax.swing.JPanel {
         NGOControlPanel = new javax.swing.JPanel();
         btnAddItems = new javax.swing.JButton();
         btnViewItems = new javax.swing.JButton();
-        btnViewItems1 = new javax.swing.JButton();
+        btnRequests = new javax.swing.JButton();
         NGOWorkareaPanel = new javax.swing.JPanel();
         LabelImg = new javax.swing.JLabel();
 
@@ -81,8 +81,13 @@ public class ManageVolunteerPanel extends javax.swing.JPanel {
             }
         });
 
-        btnViewItems1.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        btnViewItems1.setText("Requests");
+        btnRequests.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        btnRequests.setText("Requests");
+        btnRequests.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRequestsActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout NGOControlPanelLayout = new javax.swing.GroupLayout(NGOControlPanel);
         NGOControlPanel.setLayout(NGOControlPanelLayout);
@@ -93,7 +98,7 @@ public class ManageVolunteerPanel extends javax.swing.JPanel {
                 .addGroup(NGOControlPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnViewItems, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnAddItems, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnViewItems1, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnRequests, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         NGOControlPanelLayout.setVerticalGroup(
@@ -104,7 +109,7 @@ public class ManageVolunteerPanel extends javax.swing.JPanel {
                 .addGap(26, 26, 26)
                 .addComponent(btnViewItems)
                 .addGap(29, 29, 29)
-                .addComponent(btnViewItems1)
+                .addComponent(btnRequests)
                 .addContainerGap(391, Short.MAX_VALUE))
         );
 
@@ -149,6 +154,12 @@ public class ManageVolunteerPanel extends javax.swing.JPanel {
         SplitPaneNGO.setRightComponent(objViewPI);
     }//GEN-LAST:event_btnViewItemsActionPerformed
 
+    private void btnRequestsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRequestsActionPerformed
+        // TODO add your handling code here:
+        RequestsPanel objReq =  new RequestsPanel(userProcessContainer, ecosystem,userAcc);
+        SplitPaneNGO.setRightComponent(objReq);
+    }//GEN-LAST:event_btnRequestsActionPerformed
+
     public void setBG() {
         try {
             LabelImg.setMinimumSize(new Dimension(userProcessContainer.getWidth(), userProcessContainer.getHeight()));
@@ -170,7 +181,7 @@ public class ManageVolunteerPanel extends javax.swing.JPanel {
     private javax.swing.JPanel NGOWorkareaPanel;
     private javax.swing.JSplitPane SplitPaneNGO;
     private javax.swing.JButton btnAddItems;
+    private javax.swing.JButton btnRequests;
     private javax.swing.JButton btnViewItems;
-    private javax.swing.JButton btnViewItems1;
     // End of variables declaration//GEN-END:variables
 }

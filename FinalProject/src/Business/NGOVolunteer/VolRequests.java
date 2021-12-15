@@ -54,5 +54,8 @@ public class VolRequests {
     public void setVolreqStatus(String volreqStatus) {
         this.volreqStatus = volreqStatus;
     }
-    
+    @Override
+    public String toString(){
+        return volreqId;
+    }
 }

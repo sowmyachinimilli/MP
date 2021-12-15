@@ -22,6 +22,16 @@ public class Volunteer {
     private String volZipcode;
     private String volExp;
     private String volAvail;
+    private String volNGO;
+
+    public String getVolNGO() {
+        return volNGO;
+    }
+
+    public void setVolNGO(String volNGO) {
+        this.volNGO = volNGO;
+    }
+    
 
     public String getVolAvail() {
         return volAvail;

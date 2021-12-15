@@ -35,6 +35,7 @@ public class AddVolunteerPanel extends javax.swing.JPanel {
     EcoSystem ecosystem;
     UserAccountDirectory uad;
     VolunteerDirectory vold;
+    String ngoName;
     public AddVolunteerPanel(JPanel userProcessContainer,EcoSystem ecosystem,UserAccount userAcc) {
         initComponents();
         this.userProcessContainer = userProcessContainer;
@@ -43,6 +44,7 @@ public class AddVolunteerPanel extends javax.swing.JPanel {
               ecosystem.setVolDir(new VolunteerDirectory());
           }
         setBG();
+        ngoName=userAcc.getEmployee().getName();
     }
 
     /**
@@ -324,17 +326,18 @@ public class AddVolunteerPanel extends javax.swing.JPanel {
 
     private void txtVolcopwd1FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtVolcopwd1FocusLost
         // TODO add your handling code here:
-        if(!(txtVolpwd.getText().equals(txtVolcopwd1.getText()))){
-            lblVolpwd2.setText("Password Mismatch. Please verify the password entered.");
-        }
-        else{
-            lblVolpwd2.setText("");
-        }
+//        if(!(txtVolpwd.getText().equals(txtVolcopwd1.getText()))){
+//            lblVolpwd2.setText("Password Mismatch. Please verify the password entered.");
+//        }
+//        else{
+//            lblVolpwd2.setText("");
+//        }
     }//GEN-LAST:event_txtVolcopwd1FocusLost
 
     private void btnSubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubmitActionPerformed
         // TODO add your handling code here:
         if(!nullCheck()){
+            if(chkpwd()){
             UserAccountDirectory uaList = ecosystem.getUserAccountDirectory();
             Employee employee = new Employee();
             employee.setName(txtVolname.getText());
@@ -358,6 +361,7 @@ public class AddVolunteerPanel extends javax.swing.JPanel {
             volAccount.setRole(new DeliveryVolunteer());
             volAccount.setEmployee(employee);
             vol.setVolAvail("New");
+            vol.setVolNGO(ngoName);
             uad=ecosystem.getUserAccountDirectory();
             uad.createUserAccount(txtVoluname.getText(), txtVolpwd.getText(), employee, new DeliveryVolunteer());
             ecosystem.setUserAccountDirectory(uad);
@@ -365,9 +369,13 @@ public class AddVolunteerPanel extends javax.swing.JPanel {
             vold = ecosystem.getVolDir();
             vold.addNewVolunteer(vol);
             ecosystem.setVolDir(vold);
-
             JOptionPane.showMessageDialog(this, "Volunteer added successfully!");
             clearfields();
+            }
+            else{
+                JOptionPane.showMessageDialog(this, "Password Mismatch. Please verify the password entered.");  
+              txtVolcopwd1.setText("");
+            }
         }
         else{
             JOptionPane.showMessageDialog(this, "Please make sure that you have filled all mandatory fields");
@@ -461,4 +469,13 @@ public class AddVolunteerPanel extends javax.swing.JPanel {
     private javax.swing.JTextField txtVolpwd;
     private javax.swing.JTextField txtVoluname;
     // End of variables declaration//GEN-END:variables
+
+    private boolean chkpwd() {
+        if(txtVolpwd.getText().equals(txtVolcopwd1.getText())){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
 }

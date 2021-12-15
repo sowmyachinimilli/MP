@@ -162,8 +162,8 @@ public class ManageVolunteerPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
         VolRequests vr = new VolRequests();
         vr.setVolreqId("1");
-        vr.setVolreqName("Volunteer");
-        vr.setVolreqNum(cbV.getSelectedItem().toString());
+        vr.setVolreqName(cbV.getSelectedItem().toString());
+        vr.setVolreqNum("1");
         vr.setVolreqWH(WHname);
         vr.setVolreqStatus("Requested");
         vrD = ecosystem.getVRDirectory();

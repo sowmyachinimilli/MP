@@ -35,6 +35,7 @@ public class ViewModifyVolunteerPanel extends javax.swing.JPanel {
     JPanel userProcessContainer;
     EcoSystem ecosystem;
     VolunteerDirectory vold;
+    String ngoName;
     public ViewModifyVolunteerPanel(JPanel userProcessContainer,EcoSystem ecosystem,UserAccount userAcc) {
         initComponents();
         this.userProcessContainer = userProcessContainer;
@@ -42,6 +43,7 @@ public class ViewModifyVolunteerPanel extends javax.swing.JPanel {
         if(ecosystem.getVolDir() == null){
               ecosystem.setVolDir(new VolunteerDirectory());
           }
+        ngoName = userAcc.getEmployee().getName();
         populatevoltable();
         setBG();
     }
@@ -284,14 +286,8 @@ public class ViewModifyVolunteerPanel extends javax.swing.JPanel {
         }
         DefaultTableModel model = (DefaultTableModel) tblVolunteer.getModel();
         Volunteer selectedvol = (Volunteer)model.getValueAt(selectedRowIndex, 0);
-        /* // First delete the customer from employee
-        this.system.getEmployeeDirectory().deleteEmployee(selectedRest.getResManagerName());
-        // And thne delete the userAccount
-        this.system.getUserAccountDirectory().deleteUserAcc(
-            this.system.getRestaurantDirectory().getResList().
-            get(selectedRowIndex).getUserAcc()
-        );
-        // finally delete the user from customer directory*/
+        ecosystem.getUserAccountDirectory().deleteUserAccount(
+                ecosystem.getVolDir().getVolunteerList().get(selectedRowIndex).getVolAccount());
         vold= ecosystem.getVolDir();
         vold.deleteVolunteer(selectedvol);
         ecosystem.setVolDir(vold);
@@ -361,16 +357,20 @@ public class ViewModifyVolunteerPanel extends javax.swing.JPanel {
                 vol.setVolState(txtVolState.getText());
                 vol.setVolZipcode(txtVolZip.getText());
                 vol.setVolExp(txtVolExp.getText());
-                UserAccount volua=new UserAccount();
-                volua.setUsername(txtVoluname.getText());
-                volua.setPassword(txtVolpwd.getText());
+//                UserAccount volua=new UserAccount();
+//                volua.setUsername(txtVoluname.getText());
+//                volua.setPassword(txtVolpwd.getText());
 //                if(vol.getVolAccount().getUsername().equals(txtVoluname.getText())){
 //                    Employee emp=new Employee();
 //                    emp.setName(txtvolAdmin.getText());
 //                    vol.getVolAccount().setPassword(txtVolpwd.getText());
 //                    vol.getVolAccount().setEmployee(emp);
 //                }
-                vol.setVolAccount(volua);
+                if(vol.getVolAccount().getUsername().equals(txtVoluname.getText())){
+                    vol.getVolAccount().setPassword(txtVolpwd.getText());
+                    vol.getVolAccount().getEmployee().setName(txtVolname.getText());
+                }
+                //vol.setVolAccount(volua);
                 break;
             }
 
@@ -455,12 +455,14 @@ public class ViewModifyVolunteerPanel extends javax.swing.JPanel {
         txtVoluname.setText("");
         txtVolpwd.setText("");
         txtVolage.setText("");
+        lblvolid1.setText("");
     }
     
     private void populatevoltable() {
         DefaultTableModel model = (DefaultTableModel) tblVolunteer.getModel();
         model.setRowCount(0);
         for(Volunteer vol: ecosystem.getVolDir().getVolunteerList()){
+           if(vol.getVolNGO().equals(ngoName)){
            Object[] row = new Object[9];
            row[0] =vol;
            row[1] =vol.getVolName();
@@ -472,6 +474,7 @@ public class ViewModifyVolunteerPanel extends javax.swing.JPanel {
            row[7] =vol.getVolZipcode();
            row[8] =vol.getVolExp();
            model.addRow(row);
+           }
         } 
     }
 
